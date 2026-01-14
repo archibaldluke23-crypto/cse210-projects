@@ -27,14 +27,24 @@ namespace Sandbox
             int x = 5;
             Console.WriteLine("Value of x is " + x);
 
-            int y = 3;
+            int y = 5;
             if (x > y) // Put the condision in parentheses without a colon
             {
                 Console.WriteLine("greater");
             }
+            else if (x == y)
+            {
+                Console.WriteLine("even");
+            }
 
             string school = "BYU-Idaho";
             Console.WriteLine($"I am studying at {school}."); // Use $ as you would use f in python
+
+            string valueInText = "42";
+            int number = int.Parse(valueInText); // This converts a string into a int
+
+            int number2 = 42;
+            string textVersion = number2.ToString(); // This converts int's into strings
         }
     }
 }
