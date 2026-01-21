@@ -1,16 +1,18 @@
 using System;
-// This is a one line comment 
 
-/*
-This is a 
-multi-line comment
-*/
 namespace Sandbox
 {
     public class Program
     {
         public static void Main()
         {
+            // This is a one line comment 
+
+            /*
+            This is a 
+            multi-line comment
+            */
+            // to quickly comment out multiple lines of code, highlight it and press Ctrl /
             Console.WriteLine("Hello World!");
 
             /* 
@@ -45,6 +47,16 @@ namespace Sandbox
 
             int number2 = 42;
             string textVersion = number2.ToString(); // This converts int's into strings
+            
+            for (int i = 10; i > 0; i-- )
+            {
+                Console.WriteLine(i);
+            }
+
+            // will give you a random number between 1 and 10
+            Random randomGenerator = new Random();
+            number = randomGenerator.Next(1, 11);
+            Console.WriteLine(number);
         }
     }
 }
