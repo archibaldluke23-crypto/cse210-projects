@@ -52,8 +52,8 @@
             Console.WriteLine(number);
             
             // Calling classes from other files
-            Counter myCounter = new Counter();
-            myCounter.Run();
+            // Counter myCounter = new Counter();
+            // myCounter.Run();
 
             Message m1 = new Message(); // m1 is an object
             m1._message = "Hello";
