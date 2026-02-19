@@ -1,193 +1,193 @@
-// Sod Farm Activity
+// // Sod Farm Activity
 
-// TODO:
-// 1. Create a Plot class that has the dimensions of a rectangular sod farm plot in feet
-// 2. Complete the TODO in Run
-// 3. Complete the SavePlot() function
-// Stretch Activities
-// 1. Add a name to plot
-// 2. How would the plots be loaded from file?
+// // TODO:
+// // 1. Create a Plot class that has the dimensions of a rectangular sod farm plot in feet
+// // 2. Complete the TODO in Run
+// // 3. Complete the SavePlot() function
+// // Stretch Activities
+// // 1. Add a name to plot
+// // 2. How would the plots be loaded from file?
 
-namespace SodFarm
+// namespace SodFarm
 
-{
+// {
     
 
-    // The Plot Class
+//     // The Plot Class
 
-    public class Plot
+//     public class Plot
 
-    {
+//     {
 
-        // TODO: create class members for length and width
-        public double _length;
-        public double _width;
+//         // TODO: create class members for length and width
+//         public double _length;
+//         public double _width;
 
 
-        // TODO: create a method for calculating area
-        public double GetArea()
-        {
-            return _length * _width;
-        }
+//         // TODO: create a method for calculating area
+//         public double GetArea()
+//         {
+//             return _length * _width;
+//         }
 
-    }
+//     }
 
-    class PlotManager
+//     class PlotManager
 
-    {
+//     {
 
-        public string _fileName = "sodfarm.txt";
+//         public string _fileName = "sodfarm.txt";
 
-        public List<Plot> _plots = new List<Plot>();
+//         public List<Plot> _plots = new List<Plot>();
 
-        /// <summary>
+//         /// <summary>
 
-        /// Run the program, collecting dimensions for individule plots and add them together
+//         /// Run the program, collecting dimensions for individule plots and add them together
 
-        /// </summary>
-        static void Main(string[] args)
-        {
-            PlotManager plotManager = new PlotManager();
-            plotManager.Run();
-        }
-        public void Run()
+//         /// </summary>
+//         static void Main(string[] args)
+//         {
+//             PlotManager plotManager = new PlotManager();
+//             plotManager.Run();
+//         }
+//         public void Run()
 
-        {
+//         {
 
-            do
+//             do
 
-            {
+//             {
 
-                Console.Write("Add a plot? (y/n) ");
+//                 Console.Write("Add a plot? (y/n) ");
 
-                if (Console.ReadLine().ToLower() == "n")
+//                 if (Console.ReadLine().ToLower() == "n")
 
-                    break;
+//                     break;
 
-                try
+//                 try
 
-                {
+//                 {
 
-                    Console.Write("Enter Length (ft): ");
+//                     Console.Write("Enter Length (ft): ");
 
-                    double l = double.Parse(Console.ReadLine());
+//                     double l = double.Parse(Console.ReadLine());
 
-                    Console.Write("Enter Width (ft): ");
+//                     Console.Write("Enter Width (ft): ");
 
-                    double w = double.Parse(Console.ReadLine());
+//                     double w = double.Parse(Console.ReadLine());
 
-                    // TODO: create a new plot and add it to the list
-                    Plot newPlot = new Plot();
-                    newPlot._length = l;
-                    newPlot._width = w;
+//                     // TODO: create a new plot and add it to the list
+//                     Plot newPlot = new Plot();
+//                     newPlot._length = l;
+//                     newPlot._width = w;
                 
-                    _plots.Add(newPlot);
+//                     _plots.Add(newPlot);
 
 
-                }
+//                 }
 
-                catch (FormatException)
+//                 catch (FormatException)
 
-                {
+//                 {
 
-                    Console.WriteLine("Invalid input. Please enter numeric values.");
+//                     Console.WriteLine("Invalid input. Please enter numeric values.");
 
-                }                
+//                 }                
 
-            } while (true);
+//             } while (true);
 
-            // Display Plot list
+//             // Display Plot list
 
-            DisplayPlots();
+//             DisplayPlots();
 
-            // Display total area
+//             // Display total area
 
-            Console.WriteLine($"Total Area is: {CalculateTotalArea()} ft^2");
+//             Console.WriteLine($"Total Area is: {CalculateTotalArea()} ft^2");
 
-            // Save the plots to disk
+//             // Save the plots to disk
 
-            SavePlots();
+//             SavePlots();
 
-        }
+//         }
 
-        /// <summary>
+//         /// <summary>
 
-        /// Iterate through the plots and calculate the total area
+//         /// Iterate through the plots and calculate the total area
 
-        /// </summary>
+//         /// </summary>
 
-        /// <returns></returns>
+//         /// <returns></returns>
 
-        public double CalculateTotalArea()
+//         public double CalculateTotalArea()
 
-        {
+//         {
 
-            double totalArea = 0;
+//             double totalArea = 0;
 
-            foreach (Plot p in _plots)
+//             foreach (Plot p in _plots)
 
-            {
+//             {
 
-                totalArea =+ p.GetArea();
+//                 totalArea =+ p.GetArea();
 
-            }            
+//             }            
 
-            return totalArea;
+//             return totalArea;
 
-        }
+//         }
 
-        /// <summary>
+//         /// <summary>
 
-        /// Displays all plots, including dimensions and area
+//         /// Displays all plots, including dimensions and area
 
-        /// </summary>
+//         /// </summary>
 
-        public void DisplayPlots()
+//         public void DisplayPlots()
 
-        {
+//         {
 
-            if (_plots.Count == 0)
+//             if (_plots.Count == 0)
 
-            {
+//             {
 
-                Console.WriteLine("No plots found.");
+//                 Console.WriteLine("No plots found.");
 
-                return;
+//                 return;
 
-            }
+//             }
 
-            foreach (Plot p in _plots)
+//             foreach (Plot p in _plots)
 
-            {
+//             {
 
-                Console.WriteLine(p.ToString());
+//                 Console.WriteLine(p.ToString());
 
-            }
+//             }
 
-        }
+//         }
 
-        /// <summary>
+//         /// <summary>
 
-        /// Writes all plots to a file, one plot per line
+//         /// Writes all plots to a file, one plot per line
 
-        /// Note: _filename is the output file path
+//         /// Note: _filename is the output file path
 
-        /// </summary>
+//         /// </summary>
 
-        public void SavePlots()
+//         public void SavePlots()
 
-        {
-            // Save the plots to file (one plot per line)
-            Console.Write("What is your file name? ");
-            string fileName = Console.ReadLine();
-            using (StreamWriter outputFile = new StreamWriter(fileName))
-            {
-                foreach (Plot plot in _plots)
-                outputFile.WriteLine($"{plot}\n");
-            }
+//         {
+//             // Save the plots to file (one plot per line)
+//             Console.Write("What is your file name? ");
+//             string fileName = Console.ReadLine();
+//             using (StreamWriter outputFile = new StreamWriter(fileName))
+//             {
+//                 foreach (Plot plot in _plots)
+//                 outputFile.WriteLine($"{plot}\n");
+//             }
 
-        }
+//         }
 
-   }
+//    }
 
-}
+// }
