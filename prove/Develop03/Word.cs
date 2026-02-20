@@ -2,10 +2,17 @@ public class Word
 {
     private string _text;
     private bool _isHidden;
+    private string _originalText;
+    private bool _endLineWord;
     public Word(string text)
     {
         _text = text;
+        _originalText = text;
         _isHidden = false;
+        if (text.Contains("\n"))
+        {
+            _endLineWord = true;
+        }
     }
     public void Hide()
     {
@@ -15,6 +22,8 @@ public class Word
         {
             dashedWord += "_";
         }
+        if (_endLineWord)
+            dashedWord += "\n";
         _text = dashedWord;
         _isHidden = true;
     }
@@ -25,5 +34,10 @@ public class Word
     public string GetDisplayText()
     {
         return _text;
+    }
+    public void UnHide()
+    {
+        _text = _originalText;
+        _isHidden = false;
     }
 }
