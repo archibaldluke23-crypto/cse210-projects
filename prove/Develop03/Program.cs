@@ -1,5 +1,9 @@
 using System;
 
+
+// To exceed requirments in this assignment I made an undo feature that allows the user to type "back"
+// which will restore the last 3 words hidden in the scripture. I also made it so the words don't get cut off in the terminal 
+// when creating a new line.
 class Program
 {
     static void Main(string[] args) 

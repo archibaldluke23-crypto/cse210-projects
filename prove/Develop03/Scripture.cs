@@ -29,7 +29,6 @@ public class Scripture
         string text = "";
         foreach (Word word in _words)
         {
-            
             text += $"{word.GetDisplayText()} ";
         }
         return $"{_reference.ToString()} {text}";
