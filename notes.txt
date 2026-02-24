@@ -1,0 +1,334 @@
+Statically Typed Languages: C, C++, Java, C#
+Dynamically Typed Languages: JavaScript, Python, Perl
+
+In C# public words are Capitalized and private words are all lower case
+Public,   private
+
+C# runs the whole program at the same time instead of line by line. 
+
+Data types: int, double, string, bool
+
+AND = &&
+OR = ||
+NOT = !
+
+When naming variables, start the first word of the name in lower case but start
+the remaining words with a capitalized letter
+ex: usersColor
+
+To convert a string into an int:
+int number = int.Parse(valueInText);
+
+While loops works the same as in python
+
+a Do While loop means that the loop will run at least once, then check if the condistions are met to 
+see if it will run again:
+string response;
+do
+{
+    Console.Write("Do you want to continue? ");
+    response = Console.ReadLine();
+} while (response == "yes");
+
+A For loop in python is like C#'s Foreach loop:
+foreach (string color in colors)
+{
+    Console.WriteLine(color);
+}
+
+Range in python is like C#'s for loop.
+This loop has 3 parts after the for. 
+1 declare the variable.
+2 declare the condistion that has to be met to run.
+3 update the variable:
+for (int i = 0; i < 10; i++)     // i++ means add 1 to i
+{
+    Console.WriteLine(i);
+}
+
+To get a random number:
+Random randomGenerator = new Random();
+int number = randomGenerator.Next(1, 11);
+
+To create a list:
+List<int> numbers = new List<int>();
+List<string> words = new List<string>();
+Then to add to the list:
+listName.Add("list item")
+To get the size of the list:
+Console.WriteLine(words.Count);
+
+To prepend you need to:
+listName.Insert(index number, itemName)
+
+To make a function you structure it like this:
+returnType FunctionName(dataType parameter1, dataType parameter2) // returnType can be int, string, or void
+{
+    // function_body
+}
+When everything is in place it looks like this:
+int AddTwoNumbers(int a, int b)     // The name of the function should be in TitleCase
+{
+    return a + b;
+}
+
+putting "static" before the returnType alows your function to be called without any other context:
+static int AddTwoNumbers(int a, int b)     
+{
+    return a + b;
+}
+
+Value types store data directly into their own memory space. (Unmaluable)
+Reference types store a reference to the actual data. (Maluable)
+This code assigns two references to the array:
+int[] dataArray = new int[] {10, 20, 30};
+int[] dataReference = dataArray;
+dataReference[2] = 90;
+When you display dataArray or dataReference they will now both read as {10, 20, 90}
+
+ref is used to pass the actual variable instead of a copy of the variable to another function:
+static void TestPassByReferenceUsingRef(ref int x)
+        {
+            x = 99;
+            ...   
+        }
+        public static void Main(string[] args)
+        {
+          int x = 10;
+          TestPassByReferenceUsingRef(ref x);
+          Console.WriteLine(x);
+          ...
+        }
+This will display 99 instead of 10
+
+out is almost the same as ref but you don't have to set x equal to anything in the main function:
+static void TestPassByReferenceUsingOut(out int x)
+        {
+            x = 199;
+            ...   
+        }
+        public static void Main(string[] args)
+        {
+          int x;
+          TestPassByReferenceUsingRef(out x);
+          Console.WriteLine(x);
+          ...
+        }
+
+To handle exceptions:
+try
+{
+    // Attempt to divide by zero
+    int numerator = 10;
+    int denominator = 0;
+    int result = numerator / denominator;
+    Console.WriteLine("Result: " + result);
+}
+catch (DivideByZeroException ex)  //Handle only divide by 0 exception
+{
+    Console.WriteLine("Error: Cannot divide by zero.");
+    Console.WriteLine("Exception message: " + ex.Message);
+}
+catch (Exception ex)  // Catches all other exceptions
+{
+    Console.WriteLine("Error: Exception Occurred");
+    Console.WriteLine("Exception message: " + ex.Message);
+}
+finally
+{
+    Console.WriteLine("This block always executes, regardless of exceptions.");
+}
+
+you can also get input as in int like this:
+birthYear = int.Parse(Console.ReadLine());
+
+When programming with classes use TitleCase for class and method names, and 
+use _underscoreCamelCase for our member variable. For variables whose value will not change user 
+all uppercase with _ between the words.
+
+A class stores multiple attrabutes inside a variable:
+ Person person = new Person();
+    person._givenName = "Joseph"; // These are the ingredients 
+    person._familyName = "Smith";
+    person.ShowWesternName();
+    person.ShowEasternName();
+It knows what to do with this information because of the class you write for it.
+This is the recipe.
+public class Person
+    {
+        // The C# convention is to start member variables with an underscore _
+        public string _givenName = "";
+        public string _familyName = "";
+
+        // A special method, called a constructor that is invoked using the  
+        // new keyword followed by the class name and parentheses.
+        public Person()
+        {
+        }
+
+        // A method that displays the person's full name as used in eastern 
+        // countries or <family name, given name>.
+        public void ShowEasternName()
+        {
+            Console.WriteLine($"{_familyName}, {_givenName}");
+        }
+
+        // A method that displays the person's full name as used in western 
+        // countries or <given name family name>.
+        public void ShowWesternName()
+        {
+            Console.WriteLine($"{_givenName} {_familyName}");
+        }
+    }
+
+    You can add functions to the class and call them using a ".":
+    public class Blind
+{
+    public double _width;
+    public double _height;
+    public string _color;
+    
+    public double GetArea()  // function
+    {
+        return _width * _height;
+    }
+}
+Calling the function:
+Blind kitchen = new Blind();
+kitchen._width = 60;
+kitchen._height = 48;
+kitchen._color = "White";
+double materialAmount = kitchen.GetArea();
+
+You can put class in another class:
+public class House
+{
+    public string _owner;
+    public Blind _kitchen = new Blind(); // give the type by saying the other class instead of giving string or int
+    public Blind _livingRoom = new Blind();  // make sure to include "= new ClassName();" when putting a class in a class.
+}
+
+You can go multiple levels into the classes like this:
+johnsonHome._kitchen._width = 60;
+
+You can also create a list of classes:
+public class House
+{
+    public List<Blind> _blinds = new List<Blind>();
+}
+johnsonHome._blinds.Add(kitchen); // apend new items that become classes.
+double amount = johnsonHome._blinds[0].GetArea(); // call a function for a blind in the list.
+foreach (Blind b in johnsonHome._blinds) // call the function for each class in the parent classes list. 
+{
+    double amount = b.GetArea();
+}
+
+Instance - A variable whose data type is the class:
+Car myCar = new Car(); // myCar is an instance of the Car class.
+
+
+Object - the result of applying strings and int's into a class. it is the cake that comes out of the recipe. Instance of a class
+
+Instantiate - A verb that means "to create an instance of."
+
+Method - A member function. Methods are called using "dot notation" with an instance of the class before the dot.
+
+A switch statment is a shorthand if statement
+switch (Console.ReadLine())
+{
+    case "1"
+    DoSomething();
+    break;
+}
+
+To read a file:
+ foreach (string line in File.ReadLines(fileName))
+
+ To write to a file:
+ File.WriteAllText(fileName, $"{toFileEntry}\n"); // overrides the file and write to it
+ File.AppendAllText(fileName, $"{toFileEntry}\n"); // Append text to the file
+ or 
+ using (StreamWriter outputFile = new StreamWriter(filename))
+{
+    // You can add text to the file with the WriteLine method
+    outputFile.WriteLine("This will be the first line in the file.");
+    
+    // You can use the $ and include variables just like with Console.WriteLine
+    string color = "Blue";
+    outputFile.WriteLine($"My favorite color is {color}");
+}
+
+Encapsulation is the act of enclosing something, as if it were in a capsule.
+In programming it preventing other parts of the program from accessing class details 
+directly.
+
+Set a variable to private then set and call the variable through methods. 
+Use getters and setters
+Don't imply What the variable is through the name of the function. 
+
+Almost all class member variables should be private. Restrict access as 
+much as possible. Only make an attribute or method public if there is a specific need.
+
+Constructors are methods that are automaticly called when instantiating a class to set up that class. 
+These methods must be named the same as the class
+public class Person
+{
+    private string _title;
+    private string _firstName;
+    private string _lastName;
+
+    public Person()     // This is a constructor and it doesn't return anything. Not even void
+    {
+        _title = "";
+        _firstName = "Anonymous";
+        _lastName = "Unknown";
+    }
+
+    public Person(string title, string first, string last) // Constructor that takes in 
+    {                           // arguments when you first instantiate the class
+        _title = title;
+        _firstName = first;
+        _lastName = last;
+    }
+
+}
+
+Person p3 = new Person("Mrs.", "Jane", "Doe"); // pass all three variables
+
+Inheritance: the ability for one class to obtain the attributes and methods of another class directly
+
+// a regular class called Person
+public class Person
+{
+    public string GetName()
+    {
+        return "Joseph";
+    }
+}
+// a class that inherits from Person
+public class Student : Person
+{
+    public string GetNumber()
+    {
+        return "0123456789";
+    }
+}
+
+In a diagram the child class points to the parent class:
+                Person
+                  ^ 
+                  |
+                Student
+Call a parent constructor within a child method or constructor using "base()":
+public Student(string name, string number) : base(name) // This sets the Person name to the students name
+
+You can also use base to call methods from the parent:
+base.GetName()
+
+protected is in between private and public. It can only be accessed by its children and itself.
+
+Only make about 3 or 4 children per parent or things will get confusing.
+
+When making a child class ask yourself if the child "is a" type of parent.
+Is a student a person? yes.
+Is a credit card a person? no.
