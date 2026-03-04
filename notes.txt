@@ -314,7 +314,7 @@ public class Student : Person
     }
 }
 
-In a diagram the child class points to the parent class:
+In a diagram the child class points to the parent class with a open headed arrow or triagle:
                 Person
                   ^ 
                   |
@@ -332,3 +332,9 @@ Only make about 3 or 4 children per parent or things will get confusing.
 When making a child class ask yourself if the child "is a" type of parent.
 Is a student a person? yes.
 Is a credit card a person? no.
+
+"this()" works like "base()" but calls a constructor within its own class:
+public Constructor() : this("Hi")
+{
+    
+}
