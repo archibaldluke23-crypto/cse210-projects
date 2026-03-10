@@ -338,3 +338,59 @@ public Constructor() : this("Hi")
 {
     
 }
+
+Polymorphism: The ability to take on many forms. 
+            One line of code can have different behavior depending on the context.
+
+We can change methods from a child class by using method overriding:
+public virtual float CalculatePay() // parent class
+  {
+    return salary;
+  }
+public override float CalculatePay() // child class
+  {
+    return rate * hours; // pay is calculated differently
+  }
+
+employees.add(new Employee());
+employees.add(new HourlyEmployee());
+
+// Get a custom calculation for each one
+foreach(Employee employee in employees)
+{
+  float pay = employee.CalculatePay(); // this line is an example of Polymorphism because 
+                                        // it calls the Employee calculate function and the 
+                                        // HourlyEmployee calculate function
+  Console.WriteLine(pay);
+}
+
+If your parent class doesn't need a function but at least 2 of its children do or the function 
+needs to be slightly different for every class, then you can use abstraction:
+public abstract class Employee // abstract parent
+{
+  // Notice the abstract method doesn't have a body at all (not even an empty one)
+  // and it is followed by a semicolon.
+  public abstract float CalculatePay();
+}
+public class SalaryEmployee : Employee // child
+{
+  private float salary = 100f;
+
+  public override float CalculatePay()
+  {
+    return salary;
+  }
+}
+public class HourlyEmployee : Employee // child
+{
+  private float rate = 9f;
+  private float hours = 100f;
+
+  public override float CalculatePay()
+  {
+    return rate * hours; // pay is calculated differently
+  }
+}
+
+If a parent is abstract, you can no longer create an object 
+of that parent class.
