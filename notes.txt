@@ -17,7 +17,12 @@ the remaining words with a capitalized letter
 ex: usersColor
 
 To convert a string into an int:
+string valusInText = "5"
 int number = int.Parse(valueInText);
+
+To convert an int into a string:
+int number = 42;
+string text = number.ToString();
 
 While loops works the same as in python
 
