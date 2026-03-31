@@ -4,60 +4,73 @@ class Program
 {
     static void Main(string[] args)
     {
-        string s = "CXC";
-        string[] symbols = s.Select(c => c.ToString()).ToArray();
-        int total = 0;
-        for (int i = 0; i < symbols.Count(); i++)
+        Console.WriteLine(Occurences());
+
+        int Occurences()
         {
-            string symbol = symbols[i];
-            if (symbol == "I")
+            string haystack = "sadbutsd";
+            string needle = "sad";
+            char[] splitHaystack = haystack.ToCharArray();
+            char[] splitNeedle = needle.ToCharArray();
+            int needleWordLength = splitNeedle.Count();
+            int haystackWordLength = splitHaystack.Count();
+            int matchingInARow = 0;
+            bool match = false;
+            int returnValue = -1;
+        
+            for (int i = 0; i < haystackWordLength; i++)
             {
-                if (i < symbols.Count() - 1)
+                if (match == false)
                 {
-                    if (symbols[i+1] == "V" || symbols[i+1] == "X")
-                        total -= 1;
-                    else 
-                        total +=1;
+                    if (splitHaystack[i] == splitNeedle[matchingInARow])
+                    {
+                        matchingInARow += 1;
+                        if (matchingInARow == needleWordLength)
+                        {
+                            match = true;
+                            returnValue = i - needleWordLength + 1;
+                        }
+                    }
+                    else
+                    {
+                        matchingInARow = 0;
+                    }
                 }
-                
-                else
-                    total += 1;
             }
-            else if (symbol == "V")
-                total += 5;
-            else if (symbol == "X")
-            {
-                if (i < symbols.Count() - 1)
-                {
-                    if (symbols[i+1] == "L" || symbols[i+1] == "C")
-                        total -= 10;
-                    else 
-                        total +=10;
-                }
-                else
-                    total += 10;
-            }
-            else if (symbol == "L")
-                total += 50;
-            else if (symbol == "C")
-            {
-                if (i < symbols.Count() - 1)
-                {
-                    if (symbols[i+1] == "D" || symbols[i+1] == "M")
-                        total -= 100;
-                    else 
-                        total +=100;
-                }
-                else
-                    total += 100;
-            }
-            else if (symbol == "D")
-                total += 500;
-            else if (symbol == "M")
-                total += 1000;
-            
+            return returnValue;
         }
-        Console.WriteLine(total);
     }
 }
-      
+/*public class Solution {
+    public int StrStr(string haystack, string needle) 
+    {
+        char[] splitHaystack = haystack.ToCharArray();
+        char[] splitNeedle = needle.ToCharArray();
+        int needleWordLength = splitNeedle.Count();
+        int haystackWordLength = splitHaystack.Count();
+        int matchingInARow = 0;
+        bool match = false;
+        int returnValue = -1;
+       
+        for (int i = 0; i < haystackWordLength; i++)
+        {
+            if (match == false)
+            {
+                if (splitHaystack[i] == splitNeedle[matchingInARow])
+                {
+                    matchingInARow += 1;
+                    if (matchingInARow == needleWordLength)
+                    {
+                        match = true;
+                        returnValue = i - needleWordLength + 1;
+                    }
+                }
+                else
+                {
+                    matchingInARow = 0;
+                }
+            }
+        }
+        return returnValue;
+    }
+}*/

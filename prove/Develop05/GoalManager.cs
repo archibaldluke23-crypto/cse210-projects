@@ -44,7 +44,6 @@ public class GoalManager
         {
             foreach (Goal goal in _goals)
             {
-                    
                 Console.WriteLine($"  {index}. {goal.GetDetailsString()}");
                 index += 1;
             }

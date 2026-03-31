@@ -399,3 +399,5 @@ public class HourlyEmployee : Employee // child
 
 If a parent is abstract, you can no longer create an object 
 of that parent class.
+
+Every class inherits from object and has the ToString method and GetHashCode method.
