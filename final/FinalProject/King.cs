@@ -245,72 +245,72 @@ public class King : BoardPiece
     {
         bool safe = true;
         _friendCurrentPosition = friendCurrentPosition;
-        int NumberToRightEnd = _positionsRow - _position; // 4
-        int NumberToLeftEnd = _position - (_positionsRow - 7); //3
-        int NumberToTopEnd = (_positionsRow - 8) / 8; // 1
-        int NumberToBottomEnd = (64 - _positionsRow) / 8; // 6
+        int numberToRightEnd = _positionsRow - _position; // 4
+        int numberToLeftEnd = _position - (_positionsRow - 7); //3
+        int numberToTopEnd = (_positionsRow - 8) / 8; // 1
+        int numberToBottomEnd = (64 - _positionsRow) / 8; // 6
         if (friendCurrentPosition >= _positionsRow - 7 && friendCurrentPosition <= _positionsRow) // if in same row of king
         {
             if (friendCurrentPosition < _position) // if left of king
             {
-                for (int i = 1; i <= NumberToLeftEnd; i++)
+                for (int i = 1; i <= numberToLeftEnd; i++)
                 {
-                    safe = PotentialPositionCheck(-1, NumberToLeftEnd, potentialPosition, friendPositions, enemyPieces);
-                    i += NumberToLeftEnd;
+                    safe = PotentialPositionCheck(-1, numberToLeftEnd, potentialPosition, friendPositions, enemyPieces);
+                    i += numberToLeftEnd;
                 }
             }
             if (friendCurrentPosition > _position) // if right of king
             {
-                for (int i = 1; i <= NumberToRightEnd; i++)
+                for (int i = 1; i <= numberToRightEnd; i++)
                 {
-                    safe = PotentialPositionCheck(1, NumberToRightEnd, potentialPosition, friendPositions, enemyPieces);
-                    i += NumberToRightEnd;
+                    safe = PotentialPositionCheck(1, numberToRightEnd, potentialPosition, friendPositions, enemyPieces);
+                    i += numberToRightEnd;
                 }
             }
         }
         else if (friendCurrentPosition < _position) // if above king
         {
-            for (int i = 1; i <= NumberToTopEnd; i++)
+            for (int i = 1; i <= numberToTopEnd; i++)
             {
                 if (friendCurrentPosition == _position - (8 * i)) // if directly above
                 {
-                    safe = PotentialPositionCheck(-8, NumberToTopEnd, potentialPosition, friendPositions, enemyPieces);
-                    i += NumberToTopEnd;
+                    safe = PotentialPositionCheck(-8, numberToTopEnd, potentialPosition, friendPositions, enemyPieces);
+                    i += numberToTopEnd;
                 }
                 else if (friendCurrentPosition == _position - (7 * i)) // if diagonally top right
                 {
-                    int DiagonalNumberToTopRight = SetDiagonalNumbers(NumberToRightEnd, NumberToTopEnd);
-                    safe = PotentialPositionCheck(-7, DiagonalNumberToTopRight, potentialPosition, friendPositions, enemyPieces);
-                    i += NumberToTopEnd;
+                    int diagonalNumberToTopRight = SetDiagonalNumbers(numberToRightEnd, numberToTopEnd);
+                    safe = PotentialPositionCheck(-7, diagonalNumberToTopRight, potentialPosition, friendPositions, enemyPieces);
+                    i += numberToTopEnd;
                 }
                 else if (friendCurrentPosition == _position - (9 * i)) // if diagonally top left
                 {
-                    int DiagonalNumberToTopLeft = SetDiagonalNumbers(NumberToLeftEnd, NumberToTopEnd);
-                    safe = PotentialPositionCheck(-9, DiagonalNumberToTopLeft, potentialPosition, friendPositions, enemyPieces);
-                    i += NumberToTopEnd;
+                    int diagonalNumberToTopLeft = SetDiagonalNumbers(numberToLeftEnd, numberToTopEnd);
+                    safe = PotentialPositionCheck(-9, diagonalNumberToTopLeft, potentialPosition, friendPositions, enemyPieces);
+                    i += numberToTopEnd;
                 }
             }
         }
         else if (friendCurrentPosition > _position) // if below king
         {
-            for (int i = 1; i <= NumberToBottomEnd; i++)
+            for (int i = 1; i <= numberToBottomEnd; i++)
             {
                 if (friendCurrentPosition == _position + (8 * i)) // if directly below
                 {
-                    safe = PotentialPositionCheck(8, NumberToBottomEnd, potentialPosition, friendPositions, enemyPieces);
-                    i += NumberToBottomEnd;
+                    safe = PotentialPositionCheck(8, numberToBottomEnd, potentialPosition, friendPositions, enemyPieces);
+                    i += numberToBottomEnd;
                 }
                 else if (friendCurrentPosition == _position + (9 * i)) // if diagonally bottom right
                 {
-                    int DiagonalNumberToBottomRight = SetDiagonalNumbers(NumberToRightEnd, NumberToBottomEnd);
-                    safe = PotentialPositionCheck(9, DiagonalNumberToBottomRight, potentialPosition, friendPositions, enemyPieces);
-                    i += NumberToBottomEnd;
+                    int diagonalNumberToBottomRight = SetDiagonalNumbers(numberToRightEnd, numberToBottomEnd);
+                    safe = PotentialPositionCheck(9, diagonalNumberToBottomRight, potentialPosition, friendPositions, enemyPieces);
+                    i += numberToBottomEnd;
                 }
                 else if (friendCurrentPosition == _position + (7 * i)) // if diagonally bottom left
                 {
-                    int DiagonalNumberToBottomLeft = SetDiagonalNumbers(NumberToLeftEnd, NumberToBottomEnd);
-                    safe = PotentialPositionCheck(7, DiagonalNumberToBottomLeft, potentialPosition, friendPositions, enemyPieces);
-                    i += NumberToBottomEnd;
+                    int diagonalNumberToBottomLeft = SetDiagonalNumbers(numberToLeftEnd, numberToBottomEnd);
+                    safe = PotentialPositionCheck(7, diagonalNumberToBottomLeft, potentialPosition, friendPositions, enemyPieces);
+                    i += numberToBottomEnd;
                 }
             }
         }
@@ -322,7 +322,7 @@ public class King : BoardPiece
             
         }
     }
-    private bool PotentialPositionCheck(int multiplier, int NumberToEnd, int potentialPosition, List<int> friendPositions, List<BoardPiece> enemyPieces)
+    private bool PotentialPositionCheck(int multiplier, int numberToEnd, int potentialPosition, List<int> friendPositions, List<BoardPiece> enemyPieces)
     {
         bool safe = true;
         string enemy1;
@@ -337,7 +337,7 @@ public class King : BoardPiece
             enemy1 = "Bishop";
             enemy2 = "Pawn";
         }
-        for (int x = 1; x <= NumberToEnd; x++)
+        for (int x = 1; x <= numberToEnd; x++)
         {
             int formulaForPosition = _position + multiplier * x;
             if (potentialPosition == formulaForPosition) // see if its still in the same line
@@ -349,7 +349,7 @@ public class King : BoardPiece
             {
                 safe = FindClosestToKing(friendPositions, enemyPieces, formulaForPosition, enemy1, enemy2);
                 if (safe == false)
-                    x += NumberToEnd;
+                    x += numberToEnd;
             }
         }
         return safe;

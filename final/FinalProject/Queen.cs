@@ -33,34 +33,34 @@ public class Queen : BoardPiece
         {
             if (_position <= x && _position > x - 8)
             {
-                int NumberToRightEnd = x - _position;
-                int NumberToLeftEnd = _position - (x - 7);
-                int NumberToTopEnd = (x - 8) / 8;
-                int NumberToBottomEnd = (64 - x) / 8;
+                int numberToRightEnd = x - _position;
+                int numberToLeftEnd = _position - (x - 7);
+                int numberToTopEnd = (x - 8) / 8;
+                int numberToBottomEnd = (64 - x) / 8;
 
-                LimitMoveSet(NumberToRightEnd, enemyPositions, true, 1);
-                LimitMoveSet(NumberToLeftEnd, enemyPositions, false, 1);
-                LimitMoveSet(NumberToTopEnd, enemyPositions, false, 8);
-                LimitMoveSet(NumberToBottomEnd, enemyPositions, true, 8);
+                LimitMoveSet(numberToRightEnd, enemyPositions, true, 1);
+                LimitMoveSet(numberToLeftEnd, enemyPositions, false, 1);
+                LimitMoveSet(numberToTopEnd, enemyPositions, false, 8);
+                LimitMoveSet(numberToBottomEnd, enemyPositions, true, 8);
 
-                int DiagonalNumberToTopRight = SetDiagonalNumbers(NumberToRightEnd, NumberToTopEnd);
-                int DiagonalNumberToTopLeft = SetDiagonalNumbers(NumberToLeftEnd, NumberToTopEnd);
-                int DiagonalNumberToBottomRight = SetDiagonalNumbers(NumberToRightEnd, NumberToBottomEnd);
-                int DiagonalNumberToBottomLeft = SetDiagonalNumbers(NumberToLeftEnd, NumberToBottomEnd);
+                int diagonalNumberToTopRight = SetDiagonalNumbers(numberToRightEnd, numberToTopEnd);
+                int diagonalNumberToTopLeft = SetDiagonalNumbers(numberToLeftEnd, numberToTopEnd);
+                int diagonalNumberToBottomRight = SetDiagonalNumbers(numberToRightEnd, numberToBottomEnd);
+                int diagonalNumberToBottomLeft = SetDiagonalNumbers(numberToLeftEnd, numberToBottomEnd);
                 
-                LimitMoveSet(DiagonalNumberToTopRight, enemyPositions, false, 7);
-                LimitMoveSet(DiagonalNumberToTopLeft, enemyPositions, false, 9);
-                LimitMoveSet(DiagonalNumberToBottomRight, enemyPositions, true, 9);
-                LimitMoveSet(DiagonalNumberToBottomLeft, enemyPositions, true, 7);
+                LimitMoveSet(diagonalNumberToTopRight, enemyPositions, false, 7);
+                LimitMoveSet(diagonalNumberToTopLeft, enemyPositions, false, 9);
+                LimitMoveSet(diagonalNumberToBottomRight, enemyPositions, true, 9);
+                LimitMoveSet(diagonalNumberToBottomLeft, enemyPositions, true, 7);
                 
             }
         }
         return _moveSet;
     }
-    private void LimitMoveSet(int NumberToEnd, List<int> enemyPositions, bool addSign, int middleNumber)
+    private void LimitMoveSet(int numberToEnd, List<int> enemyPositions, bool addSign, int middleNumber)
     {
         BoardPiece king = _owner.FindPieceInList("k");
-        for (int j = 1; j <= NumberToEnd; j++)
+        for (int j = 1; j <= numberToEnd; j++)
         {
             int moveSpace;
             if (addSign)
@@ -70,11 +70,11 @@ public class Queen : BoardPiece
             if (enemyPositions.Contains(moveSpace))
             {
                 AddToMoveSet(moveSpace);
-                j += NumberToEnd;
+                j += numberToEnd;
             }
             else if (_friendPositions.Contains(moveSpace))
             {
-                j += NumberToEnd;
+                j += numberToEnd;
             }
             else
             {

@@ -55,23 +55,23 @@ public class Rook : BoardPiece
         {
             if (_position <= x && _position > x - 8) // if _position = 12
             {
-                int NumberToRightEnd = x - _position; // 4
-                int NumberToLeftEnd = _position - (x - 7); //3
-                int NumberToTopEnd = (x - 8) / 8; // 1
-                int NumberToBottomEnd = (64 - x) / 8; // 6
-                LimitMoveSet(NumberToRightEnd, _moveSet, enemyPositions, _friendPositions, true, 1);
-                LimitMoveSet(NumberToLeftEnd, _moveSet, enemyPositions, _friendPositions, false, 1);
-                LimitMoveSet(NumberToTopEnd, _moveSet, enemyPositions, _friendPositions, false, 8);
-                LimitMoveSet(NumberToBottomEnd, _moveSet, enemyPositions, _friendPositions, true, 8);
+                int numberToRightEnd = x - _position; // 4
+                int numberToLeftEnd = _position - (x - 7); //3
+                int numberToTopEnd = (x - 8) / 8; // 1
+                int numberToBottomEnd = (64 - x) / 8; // 6
+                LimitMoveSet(numberToRightEnd, _moveSet, enemyPositions, _friendPositions, true, 1);
+                LimitMoveSet(numberToLeftEnd, _moveSet, enemyPositions, _friendPositions, false, 1);
+                LimitMoveSet(numberToTopEnd, _moveSet, enemyPositions, _friendPositions, false, 8);
+                LimitMoveSet(numberToBottomEnd, _moveSet, enemyPositions, _friendPositions, true, 8);
                 
             }
         }
         return _moveSet;
     }
-    private void LimitMoveSet(int NumberToEnd, List<int> moveSet, List<int> enemyPositions, List<int> friendPositions, bool addSign, int middleNumber)
+    private void LimitMoveSet(int numberToEnd, List<int> moveSet, List<int> enemyPositions, List<int> friendPositions, bool addSign, int middleNumber)
     {
         BoardPiece king = _owner.FindPieceInList("k");
-        for (int j = 1; j <= NumberToEnd; j++)
+        for (int j = 1; j <= numberToEnd; j++)
         {
             int moveSpace;
             if (addSign)
@@ -82,11 +82,11 @@ public class Rook : BoardPiece
             {
                 
                 AddToMoveSet(moveSpace);
-                j += NumberToEnd + 1;
+                j += numberToEnd + 1;
             }
             else if (friendPositions.Contains(moveSpace))
             {
-                j += NumberToEnd + 1;
+                j += numberToEnd + 1;
             }
             else
             {

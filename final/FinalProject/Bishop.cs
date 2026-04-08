@@ -31,29 +31,29 @@ public class Bishop : BoardPiece
         {
             if (_position <= x && _position > x - 8) 
             {
-                int NumberToRightEnd = x - _position;
-                int NumberToLeftEnd = _position - (x - 7);
-                int NumberToTopEnd = (x - 8) / 8;
-                int NumberToBottomEnd = (64 - x) / 8;
+                int numberToRightEnd = x - _position;
+                int numberToLeftEnd = _position - (x - 7);
+                int numberToTopEnd = (x - 8) / 8;
+                int numberToBottomEnd = (64 - x) / 8;
 
-                int DiagonalNumberToTopRight = SetDiagonalNumbers(NumberToRightEnd, NumberToTopEnd);
-                int DiagonalNumberToTopLeft = SetDiagonalNumbers(NumberToLeftEnd, NumberToTopEnd);
-                int DiagonalNumberToBottomRight = SetDiagonalNumbers(NumberToRightEnd, NumberToBottomEnd);
-                int DiagonalNumberToBottomLeft = SetDiagonalNumbers(NumberToLeftEnd, NumberToBottomEnd);
+                int diagonalNumberToTopRight = SetDiagonalNumbers(numberToRightEnd, numberToTopEnd);
+                int diagonalNumberToTopLeft = SetDiagonalNumbers(numberToLeftEnd, numberToTopEnd);
+                int diagonalNumberToBottomRight = SetDiagonalNumbers(numberToRightEnd, numberToBottomEnd);
+                int diagonalNumberToBottomLeft = SetDiagonalNumbers(numberToLeftEnd, numberToBottomEnd);
                 
-                LimitMoveSet(DiagonalNumberToTopRight, _moveSet, enemyPositions, _friendPositions, false, 7);
-                LimitMoveSet(DiagonalNumberToTopLeft, _moveSet, enemyPositions, _friendPositions, false, 9);
-                LimitMoveSet(DiagonalNumberToBottomRight, _moveSet, enemyPositions, _friendPositions, true, 9);
-                LimitMoveSet(DiagonalNumberToBottomLeft, _moveSet, enemyPositions, _friendPositions, true, 7);
+                LimitMoveSet(diagonalNumberToTopRight, _moveSet, enemyPositions, _friendPositions, false, 7);
+                LimitMoveSet(diagonalNumberToTopLeft, _moveSet, enemyPositions, _friendPositions, false, 9);
+                LimitMoveSet(diagonalNumberToBottomRight, _moveSet, enemyPositions, _friendPositions, true, 9);
+                LimitMoveSet(diagonalNumberToBottomLeft, _moveSet, enemyPositions, _friendPositions, true, 7);
                 
             }
         }
         return _moveSet;
     }
-    private void LimitMoveSet(int NumberToEnd, List<int> moveSet, List<int> enemyPositions, List<int> friendPositions, bool addSign, int middleNumber)
+    private void LimitMoveSet(int numberToEnd, List<int> moveSet, List<int> enemyPositions, List<int> friendPositions, bool addSign, int middleNumber)
     {
         BoardPiece king = _owner.FindPieceInList("k");
-        for (int j = 1; j <= NumberToEnd; j++)
+        for (int j = 1; j <= numberToEnd; j++)
         {
             int moveSpace;
             if (addSign)
@@ -63,11 +63,11 @@ public class Bishop : BoardPiece
             if (enemyPositions.Contains(moveSpace))
             {
                 AddToMoveSet(moveSpace);
-                j += NumberToEnd + 1;
+                j += numberToEnd + 1;
             }
             else if (friendPositions.Contains(moveSpace))
             {
-                j += NumberToEnd + 1;
+                j += numberToEnd + 1;
             }
             else
             {

@@ -183,15 +183,15 @@ public abstract class BoardPiece
     {
         _inCheck  = true;
     }
-    protected int SetDiagonalNumbers(int NumberToRightOrLeft, int NumberToTopOrBottom)
+    protected int SetDiagonalNumbers(int numberToRightOrLeft, int numberToTopOrBottom)
     {
-        if (NumberToRightOrLeft <= NumberToTopOrBottom)
+        if (numberToRightOrLeft <= numberToTopOrBottom)
         {
-            return NumberToRightOrLeft;
+            return numberToRightOrLeft;
         }
         else
         {
-            return NumberToTopOrBottom;
+            return numberToTopOrBottom;
         }
     }
     public virtual bool IsInCheck(List<BoardPiece> pieces, int potentialMove)
