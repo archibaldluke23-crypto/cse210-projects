@@ -1,1 +1,9 @@
-This chess program works exactly like real chess. To select a piece type the first letter of the name of the piece you want to move along with its instance number which is to the right of the sprite in the box. For example if I wanted to select a pawn with the number 5 next to it I would type p5 . If there is no instance number then only type the first letter of the piece like if I wanted the king I would just type k. To move the piece first make sure you hit enter to select it, then you need to type one of the numbers that appears on the board like if you saw 34^ you would just type 34. If you get a pawn to the end it will ask you to transform that pawn into another piece and will ask for the first letter of the type of piece you want to change the pawn to. 
+This chess program works exactly like real chess. To select a piece type the first letter of 
+the name of the piece you want to move along with its instance number which is to the right of 
+the sprite in the box. For example if I wanted to select a pawn with the number 5 next to it I 
+would type p5 . If there is no instance number then only type the first letter of the piece 
+like if I wanted the king I would just type k. To move the piece first make sure you hit enter 
+to select it, then you need to type one of the numbers that appears on the board like if you 
+saw 34^ you would just type 34. If you get a pawn to the end it will ask you to transform that 
+pawn into another piece and will ask for the first letter of the type of piece you want to 
+change the pawn to. 
