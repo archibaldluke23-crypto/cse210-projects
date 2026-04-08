@@ -219,6 +219,11 @@ public class Player
                         _board.SetBoardPieces([queen2]);
                         _selectedPiece = queen2;
                     }
+                    else
+                    {
+                        Console.WriteLine("Invalid Response. Please try again. ");
+                        Transform();
+                    }
                 }
             }
         }

@@ -89,8 +89,11 @@ public class Board
         _playerBoardPieces.Remove(dieingPiece);
         _positions[newPosition] = piece;
         if (newPosition != piece.GetPosition())
+        {
             _positions[piece.GetPosition()] = _blankPiece;
-        return dieingPiece;
+            return dieingPiece;
+        }
+        return _blankPiece;
     }
     public BoardPiece OccupiedBy(int tilePosition)
     {
