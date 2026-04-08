@@ -2,14 +2,18 @@ public class TurnManager
 {
     private Player _player1;
     private Player _player2;
-    private List<BoardPiece> _allPieces;
+    private List<BoardPiece> _allPieces = new List<BoardPiece>();
     private string _currentTurn;
     private bool _nextPlayerInCheck;
     private BoardPiece _lastKilledPiece;
-    private Board _board;
+    private Board _board = new Board();
     private bool endGame;
     public TurnManager()
     {
+        _player1 = new Player("White", _board);
+        _player2 = new Player("Black", _board);
+        _player1.SetUpPieces(_player1);
+        _player2.SetUpPieces(_player2);
         _currentTurn = "White";
        List<BoardPiece> player1Pieces =  _player1.GetBoardPieces();
        List<BoardPiece> player2Pieces =  _player2.GetBoardPieces();
@@ -21,18 +25,15 @@ public class TurnManager
        {
             _allPieces.Add(boardPiece);
        }
-
-        _board = new Board(_allPieces);
-        _player1 = new Player("White", _board, _player1);
-        _player2 = new Player("Black", _board, _player2);
+        _board.SetBoardPieces(_allPieces);
     }
     public bool TakeTurn()
     {
         if (_currentTurn == "White")
         {
             Console.WriteLine($"Score: White {_player1.ShowScore()}, Black {_player2.ShowScore()}");
-            Console.WriteLine("Whites turn:");
             _board.ShowBoard();
+            Console.WriteLine("Whites turn:");
             if (_nextPlayerInCheck)
             {
                 endGame = _player1.InCheckMode();
@@ -43,13 +44,12 @@ public class TurnManager
             _player2.RemoveKilledPiece(_lastKilledPiece);
 
             _currentTurn = "Black";
-
         }
         else
         {
             Console.WriteLine($"Score: White {_player1.ShowScore()}, Black {_player2.ShowScore()}");
-            Console.WriteLine("Blacks turn:");
             _board.ShowBoard();
+            Console.WriteLine("Blacks turn:");
             if (_nextPlayerInCheck)
             {
                 endGame = _player2.InCheckMode();

@@ -10,52 +10,62 @@ public class Player
     private List<int> _startPositions;
     private List<int> _currentPieceMoveOptions;
     private Player _playerInstenceToPass;
-    public Player(string color, Board board, Player player)
+    public Player(string color, Board board)
     {
-        _playerInstenceToPass = player;
         _color = color;
         _board = board;
         if (_color == "White")
         {
-            List<int> _startPositions = [64,63,62,61,60,59,58,57,56,55,54,53,52,51,50,49];
+            _startPositions = [64,63,62,61,60,59,58,57,56,55,54,53,52,51,50,49];
         }
         else
         {
-            List<int> startPositions = [1,2,3,5,4,6,7,8,9,10,11,12,13,14,15,16];
+            _startPositions = [1,2,3,5,4,6,7,8,9,10,11,12,13,14,15,16];
         }
-        Pawn pawn1 = new Pawn(player, _startPositions[15]);
-        _pieces.Add(pawn1);
-        Pawn pawn2 = new Pawn(player, _startPositions[14]);
-        _pieces.Add(pawn2);
-        Pawn pawn3 = new Pawn(player, _startPositions[13]);
-        _pieces.Add(pawn3);
-        Pawn pawn4 = new Pawn(player, _startPositions[12]);
-        _pieces.Add(pawn4);
-        Pawn pawn5 = new Pawn(player, _startPositions[11]);
-        _pieces.Add(pawn5);
-        Pawn pawn6 = new Pawn(player, _startPositions[10]);
-        _pieces.Add(pawn6);
-        Pawn pawn7 = new Pawn(player, _startPositions[9]);
-        _pieces.Add(pawn7);
-        Pawn pawn8 = new Pawn(player, _startPositions[8]);
-        _pieces.Add(pawn8);
-        Rook rook1 = new Rook(player, _startPositions[7]);
-        _pieces.Add(rook1);
-        Knight knight1 = new Knight(player, _startPositions[6]);
-        _pieces.Add(knight1);
-        Bishop bishop1 = new Bishop(player, _startPositions[5]);
-        _pieces.Add(bishop1);
-        Queen queen = new Queen(player, _startPositions[4]);
-        _pieces.Add(queen);
-        King king = new King(player, _startPositions[3]);
-        _pieces.Add(king);
-        Bishop bishop2 = new Bishop(player, _startPositions[2]);
-        _pieces.Add(bishop2);
-        Knight knight2 = new Knight(player, _startPositions[1]);
-        _pieces.Add(knight2);
-        Rook rook2 = new Rook(player, _startPositions[0]);
-        _pieces.Add(rook2);
+       
         _score = 39;
+    }
+    public void SetUpPieces(Player player)
+    {
+        string spriteLetter;
+        if (_color == "White")
+            spriteLetter = "W";
+        else 
+            spriteLetter = "B";
+
+        _playerInstenceToPass = player;
+         Pawn pawn1 = new Pawn(player, _startPositions[15], $"/{spriteLetter}\\", 1);
+        _pieces.Add(pawn1);
+        Pawn pawn2 = new Pawn(player, _startPositions[14], $"/{spriteLetter}\\", 2);
+        _pieces.Add(pawn2);
+        Pawn pawn3 = new Pawn(player, _startPositions[13], $"/{spriteLetter}\\", 3);
+        _pieces.Add(pawn3);
+        Pawn pawn4 = new Pawn(player, _startPositions[12], $"/{spriteLetter}\\", 4);
+        _pieces.Add(pawn4);
+        Pawn pawn5 = new Pawn(player, _startPositions[11], $"/{spriteLetter}\\", 5);
+        _pieces.Add(pawn5);
+        Pawn pawn6 = new Pawn(player, _startPositions[10], $"/{spriteLetter}\\", 6);
+        _pieces.Add(pawn6);
+        Pawn pawn7 = new Pawn(player, _startPositions[9], $"/{spriteLetter}\\", 7);
+        _pieces.Add(pawn7);
+        Pawn pawn8 = new Pawn(player, _startPositions[8], $"/{spriteLetter}\\", 8);
+        _pieces.Add(pawn8);
+        Rook rook1 = new Rook(player, _startPositions[7], $"|{spriteLetter}|", 1);
+        _pieces.Add(rook1);
+        Knight knight1 = new Knight(player, _startPositions[6], $"/{spriteLetter})", 1);
+        _pieces.Add(knight1);
+        Bishop bishop1 = new Bishop(player, _startPositions[5], $"/{spriteLetter}\\", 1);
+        _pieces.Add(bishop1);
+        Queen queen = new Queen(player, _startPositions[4], $"|{spriteLetter}|", 0);
+        _pieces.Add(queen);
+        King king = new King(player, _startPositions[3], $"|{spriteLetter}|", 0);
+        _pieces.Add(king);
+        Bishop bishop2 = new Bishop(player, _startPositions[2], $"/{spriteLetter}\\", 2);
+        _pieces.Add(bishop2);
+        Knight knight2 = new Knight(player, _startPositions[1], $"/{spriteLetter})", 2);
+        _pieces.Add(knight2);
+        Rook rook2 = new Rook(player, _startPositions[0], $"|{spriteLetter}|", 2);
+        _pieces.Add(rook2);
     }
     public string GetColor()
     {
@@ -70,30 +80,71 @@ public class Player
         Console.Write("What piece would you like to move? ");
         string pieceToMove = Console.ReadLine();
         _selectedPiece = FindPieceInList(pieceToMove);
-        List<int> _currentPieceMoveOptions = _selectedPiece.ViewMoveOptions(_board.GetPositions());
-        _board.ShowBoard(_currentPieceMoveOptions);
-    }
-    public bool MovePiece()
-    {
-        Castle();
-        Console.Write("Where would you like to move to? ");
-        int placeToMove = int.Parse(Console.ReadLine());
-        if (_board.OccupiedBy(placeToMove).GetOwner().GetColor() == _color)
+
+        if (_selectedPiece == null)
         {
-            Console.WriteLine("Square Occupide by your own piece: Try again.");
+            _board.ShowBoard();
+            Console.WriteLine("Invalid Piece. Please try again ");
+            SelectPiece();
         }
         else
         {
+            _currentPieceMoveOptions = _selectedPiece.ViewMoveOptions(_board.GetPieces(), _isInCheck);
+            if (_currentPieceMoveOptions.Count() == 0)
+            {
+                _board.ShowBoard();
+                Console.WriteLine("You can't move this piece anywhere");
+                SelectPiece();
+            }
+            else
+                _board.ShowBoard(_currentPieceMoveOptions);
+        }
+    }
+    public bool MovePiece()
+    {
+        _board.ShowBoard(_currentPieceMoveOptions);
+        bool castled = false;
+        if (_selectedPiece.GetName() == "Rook" || _selectedPiece.GetName() == "King")
+            castled = Castle();
+        if (castled == false)
+        {
+            Console.Write("Where would you like to move to? (type 'back' to select different piece)");
+            int pastPosition = _selectedPiece.GetPosition();
+            string input = Console.ReadLine().ToLower();
+            if (input == "back")
+            {
+                _board.ShowBoard();
+                SelectPiece();
+                return MovePiece();
+            }
+            int placeToMove = 0;
+            try
+            {
+                placeToMove = int.Parse(input);
+            }
+            catch
+            {
+                Console.WriteLine("Invalid Response. Please try again ");
+                return MovePiece();
+            }
+            if (_currentPieceMoveOptions.Contains(placeToMove) == false)
+            {
+                Console.WriteLine("Can't move to there. Enter a valid space.");
+                return MovePiece();
+            }
             _enemyKilled = _board.MovePiece(_selectedPiece, placeToMove);
             _selectedPiece.ChangePosition(placeToMove);
-            foreach (int moveOption in _currentPieceMoveOptions)
+            Transform();
+            _isInCheck = false;
+            List<int> newMoves = _selectedPiece.ViewMoveOptions(_board.GetPieces());
+            foreach (int newMove in newMoves)
             {
-                BoardPiece piece = _board.OccupiedBy(moveOption);
-                if (piece.GetName() == "King" && piece.GetOwner().GetColor() != _color)
+                if (_board.OccupiedBy(newMove).GetName() == "King")
                 {
-                    piece.Check(_selectedPiece, _board.CheckPosition(_selectedPiece));
+                    _board.OccupiedBy(newMove).PutInCheck();
                     return true;
                 }
+                
             }
         }
         return false;
@@ -104,8 +155,11 @@ public class Player
     }
     public void RemoveKilledPiece(BoardPiece piece)
     {
-        _board.MovePiece(piece, 65);
-        _score -= piece.Die();
+        if (piece != null)
+        {
+            if (piece.GetPosition() != -1)
+                _score -= piece.Die();
+        }
     }
     public void Transform()
     {
@@ -120,82 +174,144 @@ public class Player
         }
         if (_selectedPiece.GetName() == "Pawn")
         {
-            int position = _board.CheckPosition(_selectedPiece);
+            int position = _selectedPiece.GetPosition();
             foreach (int number in endOfBoard)
             {
                 if (position == number)
                 {
-                    Console.Write("What would you like to turn your pawn into? ");
+                    string spriteLetter = "";
+                    if (_color == "White")
+                        spriteLetter = "W";
+                    else
+                        spriteLetter = "B";
+                    Console.Write("What would you like to turn your pawn into?(r/b/k/q) ");
                     string pieceName = Console.ReadLine();
                     _score -= _selectedPiece.Die();
-                    if (pieceName == "Rook")
+                    if (pieceName == "r")
                     {
-                        Rook rook3 = new Rook(_playerInstenceToPass, position);
+                        Rook rook3 = new Rook(_playerInstenceToPass, position, $"|{spriteLetter}|", 3);
                         _pieces.Add(rook3);
                         _score += 5;
+                        _board.SetBoardPieces([rook3]);
+                        _selectedPiece = rook3;
                     }
-                    else if (pieceName == "Bishop")
+                    else if (pieceName == "b")
                     {
-                        Bishop bishop3 = new Bishop(_playerInstenceToPass, position);
+                        Bishop bishop3 = new Bishop(_playerInstenceToPass, position, $"/{spriteLetter}\\", 3);
                         _pieces.Add(bishop3);
                         _score += 3;
+                        _board.SetBoardPieces([bishop3]);
+                        _selectedPiece = bishop3;
                     }
-                    else if (pieceName == "Knight")
+                    else if (pieceName == "k")
                     {
-                        Knight knight3 = new Knight(_playerInstenceToPass, position);
+                        Knight knight3 = new Knight(_playerInstenceToPass, position, $"/{spriteLetter})", 3);
                         _pieces.Add(knight3);
                         _score += 3;
+                        _board.SetBoardPieces([knight3]);
+                        _selectedPiece = knight3;
                     }
-                    else if (pieceName == "Queen")
+                    else if (pieceName == "q")
                     {
-                        Queen queen2 = new Queen(_playerInstenceToPass, position);
+                        Queen queen2 = new Queen(_playerInstenceToPass, position, $"|{spriteLetter}|", 2);
                         _pieces.Add(queen2);
                         _score += 9;
+                        _board.SetBoardPieces([queen2]);
+                        _selectedPiece = queen2;
                     }
                 }
             }
         }
     }
-    public void Castle()
+    public bool Castle() // error pieces disappear when selecting a rook or king
     {
-        string partnerName;
+        bool castled = false;
+        bool tryAgain = false;
+        string partnerName = "";
+        bool rookOrKing = false;
         if (_selectedPiece.GetName() == "Rook")
         {
-            partnerName = "King";
+            partnerName = "k";
+            rookOrKing = true;
         }
-        else
+        else if (_selectedPiece.GetName() == "King")
         {
-            partnerName = "Rook";
+            partnerName = "r1";
+            rookOrKing = true;
         }
-        BoardPiece partnerPiece = FindPieceInList(partnerName);
-        int selectedPosition = _board.CheckPosition(_selectedPiece);
-        int partnerPosition = _board.CheckPosition(partnerPiece);
-        bool countUpSquares = false;
-        bool clearPath = true;
-        if (selectedPosition < partnerPosition)
+        if (rookOrKing)
         {
-            countUpSquares = true;
+            do
+            {
+                
+                BoardPiece partnerPiece = FindPieceInList(partnerName);
+                int selectedPosition = _selectedPiece.GetPosition();
+                int partnerPosition = partnerPiece.GetPosition(); // error when selecting the king
+                bool countUpSquares = false;
+                bool clearPath = true;
+                int UpOrDownASquare = -1;
+                if (selectedPosition < partnerPosition)
+                {
+                    UpOrDownASquare = 1;
+                    countUpSquares = true;
+                }
+                for (int i = selectedPosition + UpOrDownASquare; i < partnerPosition || i > partnerPosition;)
+                {
+                    bool spaceTaken = _board.Occupied(i);
+                    if (spaceTaken == true)
+                    {
+                        clearPath = false;
+                        i = partnerPosition;
+                    }
+                    else if (countUpSquares)
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        i--;
+                    }
+                }
+                if (tryAgain == false && clearPath == false)
+                {
+                    tryAgain = true;
+                    partnerName = "r2";
+                }
+                else if (tryAgain == true && clearPath == false)
+                {
+                    tryAgain = false;
+                }
+                if (clearPath)
+                {
+                    List<BoardPiece> enemies = new List<BoardPiece>();
+                    foreach (BoardPiece boardPiece in _pieces)
+                    {
+                        if (boardPiece.GetPosition() != -1)
+                            {
+                                if (boardPiece.GetOwner().GetColor() != _color)
+                                    enemies.Add(boardPiece);
+                            }
+                    }
+                    int selectedMovedTo = _selectedPiece.Castle(partnerPosition, _board, true);
+                    int partnerMovedTo = partnerPiece.Castle(selectedPosition, _board);
+                    if (FindPieceInList("k").IsSquareChecked(enemies, selectedMovedTo, []) == false)
+                    {
+                        _board.MovePiece(_selectedPiece, selectedMovedTo);
+                        _board.MovePiece(partnerPiece, partnerMovedTo);
+                        _selectedPiece.ChangePosition(selectedMovedTo);
+                        partnerPiece.ChangePosition(partnerMovedTo);
+                        castled = true;
+                        _selectedPiece = partnerPiece;
+                        _currentPieceMoveOptions = _selectedPiece.ViewMoveOptions(_board.GetPieces(), _isInCheck);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Cant castle into a checked square.");
+                    }
+                }
+            } while (tryAgain == true);
         }
-        for (int i = selectedPosition + 1; i < partnerPosition || i > partnerPosition;)
-        {
-            bool spaceTaken = _board.Occupied(i);
-            if (spaceTaken == true)
-            {
-                clearPath = false;
-            }
-            if (countUpSquares)
-            {
-                i++;
-            }
-            else
-            {
-                i--;
-            }
-        }
-        int selectedMovedTo = _selectedPiece.Castle(clearPath, partnerPosition, true);
-        int partnerMovedTo = partnerPiece.Castle(clearPath, selectedPosition);
-        _board.MovePiece(_selectedPiece, selectedMovedTo);
-        _board.MovePiece(partnerPiece, partnerMovedTo);
+        return castled;
     }
     public int ShowScore()
     {
@@ -205,15 +321,29 @@ public class Player
     {
         Console.WriteLine($"{_color} is in check!");
         _isInCheck = true;
-        SelectPiece();
-        bool _nextPlayerInCheck = MovePiece();
-        return _nextPlayerInCheck;
-    }
-    public BoardPiece FindPieceInList(string pieceName)
-    {
+        bool aMoveExists = false;
         foreach (BoardPiece piece in _pieces)
         {
-            if (piece.GetName() == pieceName)
+            List<int> moves = piece.ViewMoveOptions(_board.GetPieces(), true);
+            if (moves.Count() > 0)
+                aMoveExists = true;
+        }
+        if (aMoveExists)
+            return false;
+    return true;
+    }
+    public BoardPiece FindPieceInList(string pieceName, bool general = false)
+    {
+        foreach (BoardPiece piece in _pieces) 
+        {
+            if (general)
+            {
+                    if (piece.GetName() == pieceName)
+                {
+                    return piece;
+                }
+            }
+            if (piece.GetSpecificName() == pieceName)
             {
                 return piece;
             }

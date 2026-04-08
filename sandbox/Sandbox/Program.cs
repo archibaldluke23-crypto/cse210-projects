@@ -4,73 +4,32 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine(Occurences());
-
-        int Occurences()
+        int[] solution = TwoSum([2,5,5,11], 10);
+        int[] TwoSum(int[] nums, int target) 
         {
-            string haystack = "sadbutsd";
-            string needle = "sad";
-            char[] splitHaystack = haystack.ToCharArray();
-            char[] splitNeedle = needle.ToCharArray();
-            int needleWordLength = splitNeedle.Count();
-            int haystackWordLength = splitHaystack.Count();
-            int matchingInARow = 0;
-            bool match = false;
-            int returnValue = -1;
         
-            for (int i = 0; i < haystackWordLength; i++)
+            int x = 1;
+            for (int i = 0; i < nums.Length;)
             {
-                if (match == false)
+                int firstNum = nums[i];
+                int secondNum = nums[x];
+                if (firstNum + secondNum == target)
                 {
-                    if (splitHaystack[i] == splitNeedle[matchingInARow])
-                    {
-                        matchingInARow += 1;
-                        if (matchingInARow == needleWordLength)
-                        {
-                            match = true;
-                            returnValue = i - needleWordLength + 1;
-                        }
-                    }
-                    else
-                    {
-                        matchingInARow = 0;
-                    }
+                    int[] solution = [i,x];
+                    return solution;
                 }
-            }
-            return returnValue;
-        }
-    }
-}
-/*public class Solution {
-    public int StrStr(string haystack, string needle) 
-    {
-        char[] splitHaystack = haystack.ToCharArray();
-        char[] splitNeedle = needle.ToCharArray();
-        int needleWordLength = splitNeedle.Count();
-        int haystackWordLength = splitHaystack.Count();
-        int matchingInARow = 0;
-        bool match = false;
-        int returnValue = -1;
-       
-        for (int i = 0; i < haystackWordLength; i++)
-        {
-            if (match == false)
-            {
-                if (splitHaystack[i] == splitNeedle[matchingInARow])
+                if (x < nums.Length - 1)
                 {
-                    matchingInARow += 1;
-                    if (matchingInARow == needleWordLength)
-                    {
-                        match = true;
-                        returnValue = i - needleWordLength + 1;
-                    }
+                    x++;
                 }
                 else
                 {
-                    matchingInARow = 0;
+                    i++;
+                    x = i + 1;
                 }
+
             }
+            return [];
         }
-        return returnValue;
     }
-}*/
+}

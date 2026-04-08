@@ -10,6 +10,6 @@ private bool _endGame = false;
         {
             _endGame = _turnManager.TakeTurn();
         }
-        Console.WriteLine("Game Over. Thanks for playing");
+        Console.WriteLine("Checkmate! Game Over!");
     }
 }
